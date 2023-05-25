@@ -155,14 +155,11 @@ bool IniFile::save(const string& filename){
 /*
 去除字符串前后空格
 */
-string trim(const string& str){
+string& trim(string& str){
     if(str.empty())return str;
-    int posa=str.find_first_not_of(" \n\r");
-    int posb=str.find_last_not_of(" \n\r");
-    if (posa==posb){
-        return str;
-    }
-    return str.substr(posa,posb-posa+1);
+    str.erase(0,str.find_first_not_of(" \n\r"));
+    str.erase(str.find_last_not_of(" \n\r")+1);
+    return str;
 }
 
 }
