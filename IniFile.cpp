@@ -103,17 +103,23 @@ bool IniFile::has(const string& section,const string& key){
     if(it==m_sections.end())return false;
     return it->second.find(key)!=it->second.end();
 }
+/*移除IniFile对象的一个Section*/
 void IniFile::remove(const string& section){
     m_sections.erase(section);
 }
+/*移除IniFile对象的一个Section中的指定Key-Value对*/
 void IniFile::remove(const string& section,const string& key){
     auto it=m_sections.find(section);
     if(it==m_sections.end())return;
     it->second.erase(key);
 }
+/*清除IniFile对象的内容*/
 void IniFile::clear(){
     m_sections.clear();
 }
+/*
+将IniFile对象的内容转换为.ini格式的字符串
+*/
 string IniFile::to_string(){
     stringstream ss;
     auto it=m_sections.begin();
@@ -130,10 +136,15 @@ string IniFile::to_string(){
     }
     return ss.str();
 }
-
+/*
+将IniFile对象的内容打印到终端
+*/
 void IniFile::show(){
     cout<<to_string();
 }
+/*
+将IniFile对象的内容保存到指定文件
+*/
 bool IniFile::save(const string& filename){
     ofstream ofs(filename);
     if(ofs.fail()) return false;
@@ -141,7 +152,9 @@ bool IniFile::save(const string& filename){
     ofs.close();
     return true;
 }
-
+/*
+去除字符串前后空格
+*/
 string trim(const string& str){
     if(str.empty())return str;
     int posa=str.find_first_not_of(" \n\r");
