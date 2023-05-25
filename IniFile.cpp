@@ -122,15 +122,10 @@ void IniFile::clear(){
 */
 string IniFile::to_string(){
     stringstream ss;
-    auto it=m_sections.begin();
-    for(auto it=m_sections.begin();
-        it!=m_sections.end();
-        it++){
-            ss<<"["<<it->first<<"]"<<endl;
-        for(auto iter=it->second.begin();
-            iter!=it->second.end();
-            iter++){
-                ss<<iter->first<<" = "<<(string)iter->second<<endl;
+    for(auto [first,second]:m_sections){
+            ss<<"["<<first<<"]"<<endl;
+        for(auto [key,value]:second){
+                ss<<key<<" = "<<(string)value<<endl;
         }
         ss<<endl;
     }

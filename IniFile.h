@@ -30,7 +30,7 @@ private:
 };
 
 
-typedef map<string, Value> Section;
+typedef map<string, Value,less<>> Section;
 class IniFile{
 public:
     IniFile()=default;
@@ -49,7 +49,7 @@ public:
     ~IniFile()=default;
 private:
     string m_filename;
-    map<string,Section> m_sections;
+    map<string,Section,less<>> m_sections;
 
 };
 
