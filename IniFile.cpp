@@ -3,7 +3,6 @@
 #include <sstream>
 #include<iostream>
 namespace zhi{
-
 Value::Value(bool value){
     *this = value;
 }
@@ -71,13 +70,13 @@ bool IniFile::load(const string& filename){
         }
         if(line[0]=='['){
             int pos=line.find_first_of(']');
-            section=trim(line.substr(1,pos-1));
+            section=string_util::trim(line.substr(1,pos-1));
             m_sections[section]=Section();
             continue;
         }
         int pos=line.find_first_of('=');
-        string key=trim(line.substr(0,pos));
-        string value=trim(line.substr(pos+1,line.length()-pos));
+        string key=string_util::trim(line.substr(0,pos));
+        string value=string_util::trim(line.substr(pos+1,line.length()-pos));
         m_sections[section][key]=value;
     }
     fin.close();
@@ -103,22 +102,22 @@ bool IniFile::has(const string& section,const string& key){
     if(it==m_sections.end())return false;
     return it->second.find(key)!=it->second.end();
 }
-/*移除IniFile对象的一个Section*/
+
 void IniFile::remove(const string& section){
     m_sections.erase(section);
 }
-/*移除IniFile对象的一个Section中的指定Key-Value对*/
+
 void IniFile::remove(const string& section,const string& key){
     auto it=m_sections.find(section);
     if(it==m_sections.end())return;
     it->second.erase(key);
 }
-/*清除IniFile对象的内容*/
+/**/
 void IniFile::clear(){
     m_sections.clear();
 }
 /*
-将IniFile对象的内容转换为.ini格式的字符串
+
 */
 string IniFile::to_string(){
     stringstream ss;
@@ -132,13 +131,13 @@ string IniFile::to_string(){
     return ss.str();
 }
 /*
-将IniFile对象的内容打印到终端
+
 */
 void IniFile::show(){
     cout<<to_string();
 }
 /*
-将IniFile对象的内容保存到指定文件
+
 */
 bool IniFile::save(const string& filename){
     ofstream ofs(filename);
@@ -147,14 +146,15 @@ bool IniFile::save(const string& filename){
     ofs.close();
     return true;
 }
-/*
-去除字符串前后空格
-*/
-string& trim(string& str){
-    if(str.empty())return str;
-    str.erase(0,str.find_first_not_of(" \n\r"));
-    str.erase(str.find_last_not_of(" \n\r")+1);
-    return str;
+
+namespace string_util{
+    string& trim(string& str){
+        if(str.empty())return str;
+        str.erase(0,str.find_first_not_of(" \n\r"));
+        str.erase(str.find_last_not_of(" \n\r")+1);
+        return str;
+    } 
 }
+
 
 }
