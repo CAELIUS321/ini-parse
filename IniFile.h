@@ -168,6 +168,6 @@ namespace string_util{
      * @param str  
      * @return ** string 
      */
-    string& trim(string& str);
+    string trim(string str);
 }
 }

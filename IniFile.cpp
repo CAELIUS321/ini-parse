@@ -148,10 +148,10 @@ bool IniFile::save(const string& filename){
 }
 
 namespace string_util{
-    string& trim(string& str){
+    string trim(string str){
         if(str.empty())return str;
-        str.erase(0,str.find_first_not_of(" \n\r"));
-        str.erase(str.find_last_not_of(" \n\r")+1);
+	str.erase(0,str.find_first_not_of(" \n\r"));
+	str.erase(str.find_last_not_of(" \n\r")+1);
         return str;
     } 
 }
